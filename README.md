@@ -3,7 +3,7 @@
 
 This repository includes functions that implement the extension of the Minimum Covariance Determinant (MCD) estimator to mixed-type data. The repository is organised as follows:
 
-* `data`: Directory that includes the London Airbnb listings data file in `.csv` format. The data set can also be found in [Kaggle](https://www.kaggle.com/datasets/thedevastator/airbnb-prices-in-european-cities/data)
+* `data`: Directory that includes the London Airbnb listings data file in `.csv` format. The data set can also be found in [Kaggle](https://www.kaggle.com/datasets/thedevastator/airbnb-prices-in-european-cities/data).
 * `res`: Results directory. Includes the results files obtaied by running the scripts on the main repositoy page in `.RDS` format:
 * `src`: Main functions for implementing MCDmix:
     * `find_min_lambda.R`: Bisection algorithm for finding the regularisation strength `lambda` that ensures the covariance matrix is positive definite with trace of at most `max_kappa` up to precision `tol`.
