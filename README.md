@@ -1,7 +1,7 @@
-# MCDmix
+# Simulations using MCDmix
 ## Extending the MCD estimator to mixed continuous-ordinal data
 
-This repository includes functions that implement the extension of the Minimum Covariance Determinant (MCD) estimator to mixed-type data. The repository is organised as follows:
+This repository includes functions that implement the extension of the Minimum Covariance Determinant (MCD) estimator to mixed-type data & scripts for running simulations. The repository is organised as follows:
 
 * `data`: Directory that includes the London Airbnb listings data file in `.csv` format. The data set can also be found in [Kaggle](https://www.kaggle.com/datasets/thedevastator/airbnb-prices-in-european-cities/data).
 * `res`: Results directory. Includes the results files obtaied by running the scripts on the main repositoy page in `.RDS` format:
