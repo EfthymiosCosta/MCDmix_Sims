@@ -1,5 +1,6 @@
 source('find_min_lambda.R')
 source('lspace_proj_ord.R')
+source('lspace_proj_ord_nocont.R')
 library(polycor)
 library(caret)
 library(propagate)
@@ -191,7 +192,7 @@ mcd_mixed_ord <- function(dt, cont_cols, reps = 10,
       # If not, need to regularise
       lambda_search_aux <- FALSE
       kappa_val <- kappa(cov_mat, exact = TRUE)
-      if (!matrixcalc::is.positive.definite(cov_mat) || kappa_val > max_kappa){
+      if (!matrixcalc::is.positive.definite(cov_mat*consistency_factor) || kappa_val > max_kappa){
         lambda_search <- find_min_lambda(cov_mat*consistency_factor,
                                          reg_mat,
                                          lambda_low = 0,
@@ -205,11 +206,12 @@ mcd_mixed_ord <- function(dt, cont_cols, reps = 10,
         #cat('Lambda =', lambda, '\n')
         #cat('Kappa =', kappa, '\n')
       } else {
-        cov_mat_reg <- cov_mat
+        cov_mat_reg <- cov_mat*consistency_factor
       }
       cov_mat_reg <- as.matrix(Matrix::forceSymmetric(cov_mat_reg))
       # Project binary features to latent space with updated covariance matrix
-      dt_latent_space[, c((length(cont_cols)+1):(ncol(dt)))] <- lspace_proj_ord(dt, cov_mat_reg, cont_cols, cuts, num_lvls)
+      dt_latent_space[, c((length(cont_cols)+1):(ncol(dt)))] <- lspace_proj_ord(dt, cov_mat_reg, cont_cols, cuts, num_lvls,
+                                                                                cm = colMeans(dt[subset, c(1:length(cont_cols))]))
       # Compute Mahalanobis distances
       mu <- c(colMeans(as.matrix(dt_latent_space[subset, cont_cols])), rep(0, ncol(dt)-length(cont_cols)))
       mds <- mahalanobis(dt_latent_space, center = mu, cov = cov_mat_reg)
@@ -243,7 +245,8 @@ mcd_mixed_ord <- function(dt, cont_cols, reps = 10,
     }
   }
   best_sub$Cuts <- cuts
-  dt_latent_space[, c((length(cont_cols)+1):(ncol(dt)))] <- lspace_proj_ord(dt, best_sub[[3]], cont_cols, cuts, num_lvls)
+  dt_latent_space[, c((length(cont_cols)+1):(ncol(dt)))] <- lspace_proj_ord(dt, best_sub[[3]], cont_cols, cuts, num_lvls,
+                                                                            cm = colMeans(dt[best_sub[[1]], c(1:length(cont_cols))]))
   best_sub$dtLatent <- dt_latent_space
   best_sub$kappa <- kappa(best_sub[[3]], exact = TRUE)
   best_sub$Mahalanobis <- mahalanobis(dt_latent_space,

@@ -1,4 +1,4 @@
-lspace_proj_ord <- function(data, cov_mat, cont_cols, cuts, lvls) {
+lspace_proj_ord <- function(data, cov_mat, cont_cols, cuts, lvls, cm) {
   
   n <- nrow(data)
   n_cont <- length(cont_cols)
@@ -6,7 +6,6 @@ lspace_proj_ord <- function(data, cov_mat, cont_cols, cuts, lvls) {
   
   # Precompute constants
   inv_cov <- solve(cov_mat[1:n_cont, 1:n_cont])
-  cm <- colMeans(data[, cont_cols])
   
   # Precompute the matrix used to compute new_vec
   M <- cov_mat[(n_cont + 1):(p), 1:n_cont] %*% inv_cov
