@@ -1,7 +1,7 @@
 source('src/mcd_fun_ord.R')
 source('src/find_min_lambda.R')
 source('src/lspace_proj_ord.R')
-library(clusterGeneration)
+source('src/ALYZ.R')
 # categorized numerical variable function
 intv <- function(vec, class) {
   nbase <- (1:(class-1))/class
@@ -35,10 +35,7 @@ for (seed_num in seeds){
     for (num_occurences in occurences){
       set.seed(seed_num)
       # Generate random covariance matrix for continuous variables
-      rand_sigma <- clusterGeneration::genPositiveDefMat(dim = pC + 1,
-                                                         covMethod = "unifcorrmat",
-                                                         alphad = 1,
-                                                         rangeVar = c(1, 1))$Sigma
+      rand_sigma <- generate_covmat_ALYZ(p, CN = 100)
       random_dt <- mvtnorm::rmvnorm(n = 500,
                                     mean = rep(0, (pC+1)),
                                     sigma = rand_sigma)
