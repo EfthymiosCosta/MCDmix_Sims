@@ -25,7 +25,7 @@ seeds <- c(1:100)
 eps_vec <- c(0.05, 0.10)
 h_vec <- c(0.75, 0.8, 0.9)
 lvls_vec <- c(3, 4, 2)
-n_sim <- 7*length(seeds)
+n_sim <- 6*length(seeds)
 shift_outs_ord <- vector("list", n_sim)
 shift_outs_ord <- lapply(shift_outs_ord, function(x) list())
 count <- 1
