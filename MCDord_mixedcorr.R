@@ -113,8 +113,8 @@ for (seed_num in seeds){
       # Calculate proportion of outliers detected by algorithm
       outs_detected <- which(MCDmix$Mahalanobis > crit_val)
       mixedcorr_outs_ord[[count]]$prop_true_outs_detected <- length(intersect(outs_detected, out_indices))/num_outs
-      # Calculate proportion of regular observations marked as outliers
-      mixedcorr_outs_ord[[count]]$prop_false_outs_detected <- length(setdiff(outs_detected, out_indices))/length(outs_detected)
+      # Calculate number of regular observations marked as outliers
+      mixedcorr_outs_ord[[count]]$num_false_outs_detected <- length(setdiff(outs_detected, out_indices))
       # Number of outliers among the n*(1-epsilon) observations with the lowest distance
       mixedcorr_outs_ord[[count]]$num_smallest_dist <- length(intersect(out_indices, order(MCDmix$Mahalanobis)[1:(n-num_outs)]))
       # Compute MSE
