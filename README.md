@@ -6,6 +6,7 @@ This repository includes functions that implement the extension of the Minimum C
 * `data`: Directory that includes the London Airbnb listings data file in `.csv` format. The data set can also be found in [Kaggle](https://www.kaggle.com/datasets/thedevastator/airbnb-prices-in-european-cities/data).
 * `res`: Results directory. Includes the results files obtaied by running the scripts on the main repositoy page in `.RDS` format:
 * `src`: Main functions for implementing MCDmix:
+    * `ALYZ.R`: Generates a random covariance matrix with a given condition number. This is a covariance matrix of the ALYZ type, as in [Agostinelli et al. (2015)](https://link.springer.com/article/10.1007/s11749-015-0450-6).
     * `find_min_lambda.R`: Bisection algorithm for finding the regularisation strength `lambda` that ensures the covariance matrix is positive definite with trace of at most `max_kappa` up to precision `tol`.
     * `lspace_proj_ord.R`: Function projecting ordinal variables to latent Gaussian space using the expectation of a truncated Gaussian with support defined by the manifest ordinal levels.
     * `mcd_fun_ord.R`: Main implementation of MCDmix for mixed continuous-ordinal data. Functions for computing the critical value for outlier identification, the mean squared error and the Kullback-Leibler divergence between two covariance matrices are also included.
